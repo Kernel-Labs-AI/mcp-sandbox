@@ -44,5 +44,8 @@
   },
   "keywords": [
     "vite-plugin"
-  ]
+  ],
+  "dependencies": {
+    "@e2b/code-interpreter": "^1.1.0"
+  }
 }
