@@ -1,98 +1,83 @@
-<br/>
+# mcp-sandbox
 
-<h1 align='center'>MCP Sandbox</h1>
+<p align='center'><b>Run Model Context Protocol (MCP) in a browser-based sandbox environment</b></p>
 
-<p align='center'><b>Redirect Vite's development server root to custom URL</b></p>
-
-<p align='center'>Useful for projects with nested or multiple entry points.</p>
+<p align='center'>Connect AI assistants to your services directly from web applications without local installation</p>
 
 <br/>
+
+[![npm version](https://img.shields.io/npm/v/mcp-sandbox.svg)](https://www.npmjs.com/package/mcp-sandbox)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+## Overview
+
+MCP Sandbox enables you to run Model Context Protocol (MCP) in a hosted sandbox environment powered by [E2B](https://e2b.dev). This allows you to connect AI assistants to your services directly from web applications without requiring local installations or complex setups.
+
+MCP lets AI models interact with external tools and services (like databases, APIs, or GitHub issues) through a standardized protocol, enabling more powerful and contextual AI capabilities.
+
+**🏆 Winner of the E2B Agents and AI Tools Hackathon**
 
 ## Installation
 
-```shell
-npm install -D @netglade/mcp-sandbox
+```bash
+npm install @netglade/mcp-sandbox
 ```
 
-## Example
+## Quick Start
 
-How to launch Vite in development aimed at `src/views/Dashboard/index.html`:
+```javascript
+import { startMcpSandbox } from '@netglade/mcp-sandbox';
 
-Example folder structure:
+// Initialize the MCP sandbox
+const mcpSandbox = await startMcpSandbox({
+  mcpCommand: 'your-mcp-command',
+  apiKey: 'your-e2b-api-key',
+});
 
+// Get the MCP server URL to connect your AI assistant
+const mcpUrl = mcpSandbox.getUrl();
+console.log("MCP server URL:", mcpUrl);
 ```
-├── src
-│   ├── views
-│   │   ├── Dashboard
-│   │   │   ├── index.html
-│   │   │   ├── index.ts
-│   │   │   // other framework-specific files
-```
 
-Add plugin to your `vite.config.ts`:
+## Example Integration
 
-```typescript
-import { defineConfig } from 'vite'
-import path from 'path'
-// Import plugin
-import { rootRedirect } from '@netglade/mcp-sandbox'
+```javascript
+import { startMcpSandbox } from '@netglade/mcp-sandbox';
 
-export default defineConfig({
-  build: {
-    rollupOptions: {
-      input: {
-        dashboard: path.resolve(__dirname, 'src/views/Dashboard/index.html'),
-      }
-    }
-  },
+// Start the MCP sandbox
+const mcpSandbox = await startMcpSandbox({
+  mcpCommand: 'github-mcp',
+  apiKey: process.env.E2B_API_KEY,
+  envs: {
+    GITHUB_TOKEN: process.env.GITHUB_TOKEN
+  }
+});
+
+// In your AI chat application
+function setupAIAssistant() {
+  const mcpUrl = mcpSandbox.getUrl();
   
-  plugins: [
-    // Use plugin
-    rootRedirect({
-      url: 'http://localhost:5173/src/views/Dashboard/index.html'
-    }),
-  ],
-})
-```
-## rootRedirect API
-
-**rootRedirect(options)**
-
-Plugin options:
-
-```typescript
-{
-  // `url` - the URL that Vite's root will redirect to
-  url: string
+  // Pass MCP URL to your AI model (Claude, GPT, etc.)
+  // Example instruction: "Use the MCP at {mcpUrl} to access GitHub data"
+  initializeAIChat({
+    tools: [{
+      name: "github-mcp",
+      url: mcpUrl
+    }]
+  });
 }
 ```
 
-## Motivation
+## Background
 
-This plugin is useful for projects with nested or multiple index.html entry points. It only helps during development while using the `vite` command.
+Currently, Model Context Protocol (MCP) typically works only in local environments like Claude Desktop or Cursor. MCP Sandbox bridges this gap by providing a hosted solution that can be integrated with web-based AI chat interfaces.
 
-[Vite supports multiple entry-points.](https://vitejs.dev/guide/build.html#multi-page-app) The starting URL can be somewhat modified, but it is defined in multiple places:
-
-- You can [open the app automatically in the browser on launch.](https://vitejs.dev/config/server-options.html#server-open) This URL can be modified.
-
-- When Vite starts, it prints a message into the terminal with the starting URL. This URL cannot be changed.
-
-```shell
-VITE v4.4.9  ready in 767 ms
-
-➜  Local:   http://localhost:5173/
-```
-
-- You could have a back-end setup to proxy to the Vite server during development, where the starting URL might also have to be specified.
-- The [Vite extension for VS Code](https://marketplace.visualstudio.com/items?itemName=antfu.vite) has its custom extension config for which URL it will start.
-
-Some developers don't like to auto-open the browser when running Vite and want to open the app manually, this way their browser doesn't have to remember a URL specific to their project. This also helps when working with multiple projects.
-
-## Possible improvements
-
-- Only require relative path in URL and read the server host name and port dynamically from Vite config, e.g. `/src/views/Dashboard/index.html`. This would add support for when the port is already in use and the next one is taken instead.
+Our solution runs MCP in an E2B sandbox and exposes it through a web endpoint, eliminating the need for users to install or configure anything locally.
 
 ## License
 
 [MIT](LICENSE)
 
+## Acknowledgments
+
+- [E2B](https://e2b.dev) for providing the sandbox environment
