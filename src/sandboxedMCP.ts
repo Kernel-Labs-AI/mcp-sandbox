@@ -1,4 +1,4 @@
-import Sandbox from "@e2b/code-interpreter";
+import Sandbox, { SandboxInfo } from "@e2b/code-interpreter";
 
 export const startSandbox = async ({
   apiKey,
@@ -58,5 +58,19 @@ class SandboxedMCP {
     }
     const host = this.sandbox.getHost(3000);
     return `https://${host}/sse`;
+  }
+
+  async setTimeout(timeoutMs: number): Promise<void> {
+    if (!this.sandbox) {
+      throw new Error("Sandbox not initialized");
+    }
+    await this.sandbox.setTimeout(timeoutMs);
+  }
+
+  async getInfo(): Promise<SandboxInfo> {
+    if (!this.sandbox) {
+      throw new Error("Sandbox not initialized");
+    }
+    return await this.sandbox.getInfo();
   }
 }
