@@ -26,6 +26,11 @@ import fs from "fs";
     fs.mkdirSync('dist/cjs', {recursive: true})
     for (const fileName of fs.readdirSync("dist")) {
         const filePath = `dist/${fileName}`
+        if (filePath.endsWith('.d.ts')) {
+            fs.rmSync(filePath)
+            continue
+        }
+
         if (fs.lstatSync(filePath).isFile()) {
             fs.renameSync(filePath, `dist/cjs/${fileName}`)
         }

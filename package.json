@@ -20,11 +20,11 @@
   ],
   "main": "./dist/cjs/mcp-sandbox.umd.js",
   "module": "./dist/esm/mcp-sandbox.es.js",
-  "types": "./dist/esm/index.d.ts",
+  "types": "./dist/esm/mcp-sandbox.d.ts",
   "exports": {
     "import": "./dist/esm/mcp-sandbox.es.js",
     "require": "./dist/cjs/mcp-sandbox.umd.js",
-    "types": "./dist/esm/index.d.ts"
+    "types": "./dist/esm/mcp-sandbox.d.ts"
   },
   "dependencies": {
     "@e2b/code-interpreter": "^1.1.0"
