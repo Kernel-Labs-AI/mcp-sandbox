@@ -1,20 +1,20 @@
 import Sandbox from "@e2b/code-interpreter";
 
 export const startMcpSandbox = async ({
-  apiKey,
-  timeout = 1000 * 60 * 10,
   mcpCommand,
+  apiKey,
   envs = {},
+  timeoutMs = 1000 * 60 * 10,
 }: {
-  apiKey: string
-  timeout: number
   mcpCommand: string
-  envs: Record<string, string>
+  apiKey: string
+  envs?: Record<string, string>
+  timeoutMs?: number
 }) => {
   console.log("Creating sandbox...");
   const sandbox = await Sandbox.create("node", {
-    timeoutMs: timeout,
-    apiKey: apiKey,
+    timeoutMs,
+    apiKey,
   });
 
   const host = sandbox.getHost(3000);
