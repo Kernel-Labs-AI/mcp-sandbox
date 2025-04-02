@@ -1,3 +1,3 @@
-import { rootRedirect } from "./rootRedirect";
+import { SandboxedMCP } from "./sandboxedMCP";
 
-export { rootRedirect };
+export { SandboxedMCP };
