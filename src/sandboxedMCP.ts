@@ -1,25 +1,27 @@
 import Sandbox from "@e2b/code-interpreter";
 
+export const startSandbox = async ({
+  apiKey,
+  timeout = 1000 * 60 * 10,
+  mcpCommand,
+  envs = {},
+}: {
+  apiKey: string
+  timeout: number
+  mcpCommand: string
+  envs: Record<string, string>
+}) => {
+  console.log("Creating sandbox...");
+  const sandbox = await Sandbox.create("node", {
+    timeoutMs: timeout,
+    apiKey: apiKey,
+  });
 
-export class SandboxedMCP {
-  private sandbox: Sandbox | null = null;
+  const host = sandbox.getHost(3000);
+  const url = `https://${host}`;
 
-  private constructor(sandbox: Sandbox) {
-    this.sandbox = sandbox;
-  }
-
-  static async start(apiKey: string, timeout: number, mcpCommand: string, envs: Record<string, string> = {}): Promise<SandboxedMCP> {
-    console.log("Creating sandbox...");
-    const sandbox = await Sandbox.create("node", {
-      timeoutMs: timeout,
-      apiKey: apiKey,
-    });
-
-    const host = sandbox.getHost(3000);
-    const url = `https://${host}`;
-
-    console.log("Starting mcp server...");
-    await sandbox.commands.run(
+  console.log("Starting mcp server...");
+  await sandbox.commands.run(
       `npx -y supergateway --base-url ${url} --port 3000 --stdio npx "${mcpCommand}"`,
       {
         envs: envs,
@@ -31,10 +33,17 @@ export class SandboxedMCP {
           console.log(data);
         }
       }
-    );
+  );
 
-    console.log("MCP server started at:", url + "/sse");
-    return new SandboxedMCP(sandbox);
+  console.log("MCP server started at:", url + "/sse");
+  return new SandboxedMCP(sandbox);
+}
+
+class SandboxedMCP {
+  private sandbox: Sandbox | null = null;
+
+  constructor(sandbox: Sandbox) {
+    this.sandbox = sandbox;
   }
 
   async stop(): Promise<void> {
