@@ -6,7 +6,7 @@
 
 <br/>
 
-[![npm version](https://img.shields.io/npm/v/@netglade/mcp-sandbox.svg)](https://www.npmjs.com/package/@netglade/mcp-sandbox)
+[![npm version](https://img.shields.io/npm/v/%40netglade%2Fmcp-sandbox)](https://www.npmjs.com/package/@netglade/mcp-sandbox)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Installation
