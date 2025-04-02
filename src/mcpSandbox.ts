@@ -12,7 +12,7 @@ export const startMcpSandbox = async ({
   timeoutMs?: number
 }) => {
   console.log("Creating sandbox...");
-  const sandbox = await Sandbox.create("node", {
+  const sandbox = await Sandbox.create("base", {
     timeoutMs,
     apiKey,
   });

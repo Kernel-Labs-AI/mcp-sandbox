@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import { builtinModules } from 'module';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { peerDependencies } from './package.json';
 
 const module = process.env.MODULE || 'esm'
 
@@ -26,7 +27,11 @@ export default defineConfig({
             formats: [module === 'esm' ? 'es' : 'umd'],
         },
         rollupOptions: {
-            external: [...builtinModules, ...builtinModules.map((m) => `node:${m}`)],
+            external: [
+                ...builtinModules,
+                ...builtinModules.map((m) => `node:${m}`),
+                ...Object.keys(peerDependencies),
+            ],
         },
       emptyOutDir: false,
     },
