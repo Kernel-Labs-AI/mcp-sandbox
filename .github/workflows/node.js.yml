@@ -3,9 +3,10 @@ name: Node.js CI
 
 on:
   push:
-    # Pattern matched against refs/tags
+    branches:
+      - main
     tags:
-      - '*'           # Push events to every tag not containing /
+      - '*'
 
 env:
   NODE_VERSION: 22.x
