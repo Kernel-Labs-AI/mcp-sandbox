@@ -1,3 +1,3 @@
-import { SandboxedMCP } from "./sandboxedMCP";
+import { startSandbox } from "./mcpSandbox";
 
-export { SandboxedMCP };
+export { startSandbox };
