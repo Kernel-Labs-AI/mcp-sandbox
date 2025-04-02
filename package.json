@@ -26,11 +26,12 @@
     "require": "./dist/cjs/mcp-sandbox.umd.js",
     "types": "./dist/esm/mcp-sandbox.d.ts"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@e2b/code-interpreter": "^1.1.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.23.0",
+    "@e2b/code-interpreter": "^1.1.0",
     "@types/fs-extra": "^11.0.2",
     "@types/node": "^20.6.5",
     "cross-env": "^7.0.3",

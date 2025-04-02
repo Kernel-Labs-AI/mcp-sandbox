@@ -1,6 +1,6 @@
 import Sandbox from "@e2b/code-interpreter";
 
-export const startSandbox = async ({
+export const startMcpSandbox = async ({
   apiKey,
   timeout = 1000 * 60 * 10,
   mcpCommand,
