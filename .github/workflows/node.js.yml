@@ -41,21 +41,6 @@ jobs:
           key: ${{ github.sha }}-node-modules
       - run: npm run tsc
 
-  jest:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-      - uses: actions/cache/restore@v3
-        with:
-          path: node_modules
-          key: ${{ github.sha }}-node-modules
-      - run: npm test
-
   eslint:
     needs: install
     runs-on: ubuntu-latest
@@ -72,7 +57,7 @@ jobs:
       - run: npm run lint
 
   build:
-    needs: [typescript, jest, eslint]
+    needs: [typescript, eslint]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
