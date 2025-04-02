@@ -1,0 +1,112 @@
+
+name: Node.js CI
+
+on:
+  push:
+    # Pattern matched against refs/tags
+    tags:
+      - '*'           # Push events to every tag not containing /
+
+env:
+  NODE_VERSION: 22.x
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - run: npm ci
+      - uses: actions/cache/save@v3
+        with:
+          path: node_modules
+          key: ${{ github.sha }}-node-modules
+
+  typescript:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - uses: actions/cache/restore@v3
+        with:
+          path: node_modules
+          key: ${{ github.sha }}-node-modules
+      - run: npm run tsc
+
+  jest:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - uses: actions/cache/restore@v3
+        with:
+          path: node_modules
+          key: ${{ github.sha }}-node-modules
+      - run: npm test
+
+  eslint:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - uses: actions/cache/restore@v3
+        with:
+          path: node_modules
+          key: ${{ github.sha }}-node-modules
+      - run: npm run lint
+
+  build:
+    needs: [typescript, jest, eslint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - uses: actions/cache/restore@v3
+        with:
+          path: node_modules
+          key: ${{ github.sha }}-node-modules
+      - run: npm run build
+      - uses: actions/cache/save@v3
+        with:
+          path: dist
+          key: ${{ github.sha }}-dist
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          registry-url: https://registry.npmjs.org/
+      - uses: actions/cache/restore@v3
+        with:
+          path: node_modules
+          key: ${{ github.sha }}-node-modules
+      - uses: actions/cache/restore@v3
+        with:
+          path: dist
+          key: ${{ github.sha }}-dist
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
