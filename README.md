@@ -1,6 +1,6 @@
 <br/>
 
-<h1 align='center'>vite-plugin-root-redirect</h1>
+<h1 align='center'>MCP</h1>
 
 <p align='center'><b>Redirect Vite's development server root to custom URL</b></p>
 
@@ -11,7 +11,7 @@
 ## Installation
 
 ```shell
-npm install -D @netglade/vite-plugin-root-redirect
+npm install -D @netglade/mcp
 ```
 
 ## Example
@@ -35,7 +35,7 @@ Add plugin to your `vite.config.ts`:
 import { defineConfig } from 'vite'
 import path from 'path'
 // Import plugin
-import { rootRedirect } from '@netglade/vite-plugin-root-redirect'
+import { rootRedirect } from '@netglade/mcp'
 
 export default defineConfig({
   build: {

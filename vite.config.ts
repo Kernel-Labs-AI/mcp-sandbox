@@ -20,9 +20,9 @@ export default defineConfig({
         lib: {
             // Could also be a dictionary or array of multiple entry points
             entry: resolve(__dirname, 'src', 'index.ts'),
-            name: '@netglade/vite-plugin-root-redirect',
+            name: '@netglade/mcp',
             // the proper extensions will be added
-            fileName: (format) => `vite-plugin-root-redirect.${format}.js`,
+            fileName: (format) => `mcp.${format}.js`,
             formats: [module === 'esm' ? 'es' : 'umd'],
         },
         rollupOptions: {
