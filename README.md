@@ -1,6 +1,6 @@
 <br/>
 
-<h1 align='center'>MCP</h1>
+<h1 align='center'>MCP Sandbox</h1>
 
 <p align='center'><b>Redirect Vite's development server root to custom URL</b></p>
 
@@ -11,7 +11,7 @@
 ## Installation
 
 ```shell
-npm install -D @netglade/mcp
+npm install -D @netglade/mcp-sandbox
 ```
 
 ## Example
@@ -35,7 +35,7 @@ Add plugin to your `vite.config.ts`:
 import { defineConfig } from 'vite'
 import path from 'path'
 // Import plugin
-import { rootRedirect } from '@netglade/mcp'
+import { rootRedirect } from '@netglade/mcp-sandbox'
 
 export default defineConfig({
   build: {
