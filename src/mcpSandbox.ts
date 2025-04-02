@@ -1,12 +1,12 @@
 import Sandbox from "@e2b/code-interpreter";
 
 export const startMcpSandbox = async ({
-  mcpCommand,
+  command,
   apiKey,
   envs = {},
   timeoutMs = 1000 * 60 * 10,
 }: {
-  mcpCommand: string
+  command: string
   apiKey: string
   envs?: Record<string, string>
   timeoutMs?: number
@@ -22,7 +22,7 @@ export const startMcpSandbox = async ({
 
   console.log("Starting mcp server...");
   await sandbox.commands.run(
-      `npx -y supergateway --base-url ${url} --port 3000 --stdio npx -y "${mcpCommand}"`,
+      `npx -y supergateway --base-url ${url} --port 3000 --stdio "${command}"`,
       {
         envs,
         background: true,
