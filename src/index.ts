@@ -1,3 +1,1 @@
-import { startMcpSandbox } from "./mcpSandbox";
-
-export { startMcpSandbox };
+export * from "./mcpSandbox";

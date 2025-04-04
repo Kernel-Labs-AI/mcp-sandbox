@@ -54,3 +54,5 @@ class McpSandbox {
     return `https://${host}/sse`;
   }
 }
+
+export type { McpSandbox };
