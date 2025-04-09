@@ -22,7 +22,7 @@ export const startMcpSandbox = async ({
 
   console.log("Starting mcp server...");
   await sandbox.commands.run(
-      `npx -y supergateway --base-url ${url} --port 3000 --stdio --cors "${command}"`,
+      `npx -y supergateway --base-url ${url} --port 3000 --cors --stdio "${command}"`,
       {
         envs,
         background: true,
