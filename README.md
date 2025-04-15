@@ -15,7 +15,7 @@
 
 ## Overview
 
-MCP Sandbox enables you to run Model Context Protocol (MCP) servers directly in the browser using E2B's sandbox environment. This package makes it easy to integrate AI assistants with tools and data sources without requiring any local setup.
+MCP Sandbox enables you to run Model Context Protocol (MCP) servers directly in the browser using [E2B's sandbox environment](https://e2b.dev). This package makes it easy to integrate AI assistants with tools and data sources without requiring any local setup.
 
 
 ## Installation
@@ -43,7 +43,7 @@ console.log("MCP server URL:", mcpUrl);
 ## How It Works
 
 1. **MCP Server Execution**: Uses [supergateway](https://github.com/supercorp-ai/supergateway) to run stdio-based MCP servers over SSE (Server-Sent Events)
-2. **Sandbox Environment**: Runs in E2B's secure sandbox environment, providing isolated execution
+2. **Sandbox Environment**: Runs in [E2B](https://e2b.dev)'s secure sandbox environment, providing isolated execution
 3. **Tool Integration**: Seamlessly connects AI assistants with real-world tools and data sources
 4. **Browser Support**: Everything runs directly in the browser without local dependencies
 
