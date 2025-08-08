@@ -5,14 +5,15 @@ export const startMcpSandbox = async ({
   apiKey,
   envs = {},
   timeoutMs = 1000 * 60 * 10,
+  templateName = "base",
 }: {
   command: string
   apiKey: string
   envs?: Record<string, string>
   timeoutMs?: number
+  templateName?: string
 }) => {
-  console.log("Creating sandbox...");
-  const sandbox = await Sandbox.create("base", {
+  const sandbox = await Sandbox.create(templateName, {
     timeoutMs,
     apiKey,
   });
