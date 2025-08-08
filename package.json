@@ -1,13 +1,13 @@
 {
-  "name": "@netglade/mcp-sandbox",
-  "version": "0.0.11",
+  "name": "@kernel-labs/mcp-sandbox",
+  "version": "0.0.12",
   "description": "MCP Sandbox on E2B",
-  "author": "NetGlade",
+  "author": "Kernel Labs",
   "license": "MIT",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/netglade/mcp-sandbox.git"
+    "url": "git+ssh://git@github.com/kernel-labs/mcp-sandbox.git"
   },
   "scripts": {
     "build": "node scripts/build.js",
@@ -48,5 +48,9 @@
     "stateful-sandbox",
     "sandbox",
     "mcp"
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/kernel-labs/mcp-sandbox/issues"
+  },
+  "homepage": "https://github.com/kernel-labs/mcp-sandbox#readme"
 }
