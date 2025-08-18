@@ -23,4 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-netglade-mcp-sandbox-*.tgz
+kernel-labs-mcp-sandbox-*.tgz
+
+.env
