@@ -1,4 +1,4 @@
-import Sandbox from "@e2b/code-interpreter";
+import { Sandbox } from "@e2b/code-interpreter";
 
 export const startMcpSandbox = async ({
   command,
@@ -22,16 +22,19 @@ export const startMcpSandbox = async ({
   const url = `https://${host}`;
 
   console.log("Starting mcp server...");
+  const startedAt = Date.now();
   await sandbox.commands.run(
       `e2b-stdio-sse --base-url ${url} --port 3000 --cors --stdio "${command}"`,
       {
         envs,
         background: true,
         onStdout: (data: string) => {
-          console.log(data);
+          const delta = Date.now() - startedAt;
+          process.stdout.write(`[+${delta}ms] ` + data);
         },
         onStderr: (data: string) => {
-          console.log(data);
+          const delta = Date.now() - startedAt;
+          process.stderr.write(`[+${delta}ms] ` + data);
         }
       }
   );
